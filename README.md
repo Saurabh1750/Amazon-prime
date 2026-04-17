@@ -1,1 +1,58 @@
-# Amazon Prime Video Clone&#10;&#10;This is a static website clone of Amazon Prime Video, featuring:&#10;&#10;## Features&#10;- Movie catalog with posters, trailers, and details&#10;- Movie pages (movie.html)&#10;- Payment page (payment.html)&#10;- Responsive design (style.css, script.js)&#10;- Movie data in JS files (movie_data.js, movie_data_fixed.js)&#10;&#10;## Quick Start&#10;1. Open `index.html` in your browser&#10;2. Browse movies, play trailers&#10;&#10;## Files&#10;- `index.html`: Homepage&#10;- `movie.html`: Movie detail page&#10;- `payment.html`: Payment simulation&#10;- `script.js`, `movie.js`: Interactive logic&#10;- `images/`: Movie posters&#10;- `trailers/`: Video trailers&#10;&#10;Live: https://github.com/Saurabh1750/amjon-prime&#10;&#10;Built with HTML, CSS, JavaScript.
+Prime Stream (Amazon Prime Video Clone)
+
+A modern movie streaming website inspired by Amazon Prime Video, built using HTML, CSS, and JavaScript.
+It includes dynamic movie browsing, search, watchlist, trailers, and movie details pages.
+
+🚀 Features
+🔍 Search Functionality (real-time filtering)
+🎬 Movie Categories (Trending, Action, Comedy, Drama, Originals)
+❤️ Watchlist System (stored in localStorage)
+📺 Movie Details Page
+Description
+Cast
+Rating
+Trailer playback
+🎥 Trailer Player Modal
+🎨 Dark Theme UI (Prime-style)
+📱 Responsive Design
+💳 Subscription / Plans Page (Fake Payment Flow)
+📂 Project Structure
+📁 Prime Stream
+│── index.html          # Home page
+│── movie.html          # Movie details page
+│── payment.html        # Subscription page
+│── style.css           # Styling
+│── script.js           # Main logic
+│── images/             # Movie posters
+│── trailers/           # Video trailers
+⚙️ How to Run
+✅ Recommended (Live Server)
+Open project in VS Code
+Install Live Server Extension
+Right-click index.html → Open with Live Server
+❌ Don’t use
+file://
+
+👉 It causes errors (videos, routing, JS issues)
+
+🧠 How It Works
+Movies are stored in a JavaScript object (MOVIES / MOVIES_DATA)
+Clicking a movie redirects to:
+movie.html?title=MovieName
+The details page reads the title using:
+new URLSearchParams(window.location.search)
+Data is dynamically rendered using innerHTML
+🛠️ Tech Stack
+HTML5
+CSS3
+JavaScript (Vanilla JS)
+LocalStorage
+📌 Future Improvements
+🔥 Backend integration (Node.js / Firebase)
+👤 User authentication
+⭐ Ratings & reviews system
+🎬 Full video streaming page
+🔎 Advanced filters (genre, year)
+🙌 Author
+
+Saurabh Sharma
