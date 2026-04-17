@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment - Prime Stream</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .payment-page { padding: 2rem; min-height: 100vh; display: grid; place-items: center; }
+    .payment-container { max-width: 500px; width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem; }
+    .plan-details { background: rgba(0,168,225,0.1); border: 1px solid rgba(0,168,225,0.3); border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; }
+    .plan-name { font-size: 1.8rem; font-weight: 800; color: var(--text); }
+    .plan-price { font-size: 1.5rem; color: var(--accent); margin: 0.5rem 0; }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; color: var(--muted); margin-bottom: 0.5rem; font-weight: 600; }
+    .form-group input { width: 100%; padding: 1rem; border: 1px solid var(--border); background: rgba(255,255,255,0.06); border-radius: 12px; color: var(--text); font-size: 1rem; }
+    .form-group input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,168,225,0.1); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr 0.6fr; gap: 1rem; }
+    .btn.full-width { width: 100%; padding: 1.2rem; font-size: 1.1rem; }
+    .success-message { display: none; background: rgba(16,185,129,0.2); border: 1px solid #10b981; color: #10b981; padding: 1.5rem; border-radius: 16px; text-align: center; margin-bottom: 1rem; }
+    .back-home { text-align: center; margin-top: 1rem; }
+    .back-home .btn { background: var(--accent-strong); }
+    header { position: sticky; top: 0; background: rgba(6,10,18,0.96); padding: 1rem 2rem; border-bottom: 1px solid var(--border); }
+    header .brand { font-size: 1.5rem; font-weight: 800; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="brand">&larr; Prime Stream</a>
+  </header>
+  <main class="payment-page">
+    <div class="payment-container">
+      <h1 style="margin-bottom: 1rem; font-size: 2rem;">Complete Your Payment</h1>
+      <p style="color: var(--muted); margin-bottom: 2rem;">Secure checkout. No card details are stored or charged.</p>
+      
+      <div class="plan-details" id="plan-details">
+        <!-- Plan details populated by JS -->
+      </div>
+      
+      <form id="payment-form">
+        <div class="form-group">
+          <label for="card-number">Card Number</label>
+          <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="card-name">Name on Card</label>
+            <input type="text" id="card-name" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label for="expiry">Expiry Date</label>
+            <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required />
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" maxlength="4" required />
+          </div>
+        </div>
+        <button type="submit" class="btn primary full-width">Pay Now $9.99</button>
+      </form>
+      
+      <div class="success-message" id="success-message">
+        <h2>Payment Successful! 🎉</h2>
+        <p>Your <span id="success-plan"></span> plan is now active.</p>
+        <div class="back-home">
+          <a href="index.html" class="btn primary">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedPlan = urlParams.get('plan') || 'Standard';
+    
+    const plans = {
+      Basic: { price: '$5.99', features: ['HD streaming', '1 stream', 'Standard access'] },
+      Standard: { price: '$9.99', features: ['Full HD', '2 streams', 'Offline downloads'] },
+      Premium: { price: '$14.99', features: ['4K Ultra HD', '4 streams', 'Offline downloads'] }
+    };
+    
+    const planData = plans[selectedPlan] || plans.Standard;
+    document.getElementById('plan-details').innerHTML = `
+      <h2 class="plan-name">${selectedPlan}</h2>
+      <div class="plan-price">${planData.price}<span>/month</span></div>
+      <ul style="color: var(--text); padding-left: 1.5rem; margin-top: 1rem;">
+        ${planData.features.map(f => `<li>${f}</li>`).join('')}
+      </ul>
+    `;
+    document.querySelector('button[type="submit"]').textContent = `Pay Now ${planData.price}`;
+    
+    document.getElementById('payment-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.target;
+      if (!form.checkValidity()) return;
+      
+      localStorage.setItem('primeSelectedPlan', selectedPlan);
+      document.getElementById('success-message').style.display = 'block';
+      document.getElementById('success-plan').textContent = selectedPlan;
+      document.getElementById('payment-form').style.display = 'none';
+    });
+    
+    document.querySelector('.back-home a').addEventListener('click', () => {
+      localStorage.setItem('primeSelectedPlan', selectedPlan); // Ensure saved
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

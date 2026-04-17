@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscription Plans - Prime Stream</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="top-banner">
+    <a href="index.html">← Back to Home</a>
+  </div>
+
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span class="brand-name">Prime Stream</span>
+      </a>
+    </div>
+    <nav class="nav-center">
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
+
+  <main class="plans-page">
+    <section class="plans-hero">
+      <h1>Choose Your Plan</h1>
+      <p>Unlimited streaming, downloads, and more. Cancel anytime.</p>
+    </section>
+
+    <div class="plans-container">
+      <div class="plans-grid-full">
+        <article class="plan-card-large" data-plan="Basic">
+          <span class="plan-badge">Starter</span>
+          <h3>Basic</h3>
+          <p class="plan-price">$5.99<span>/month</span></p>
+          <ul>
+            <li>HD streaming</li>
+            <li>1 simultaneous stream</li>
+            <li>Standard library access</li>
+          </ul>
+          <button class="btn primary" onclick="window.location.href='payment.html?plan=Basic'">Select Basic</button>
+        </article>
+
+        <article class="plan-card-large recommended" data-plan="Standard">
+          <span class="plan-badge">Most Popular</span>
+          <h3>Standard</h3>
+          <p class="plan-price">$9.99<span>/month</span></p>
+          <ul>
+            <li>Full HD (1080p)</li>
+            <li>2 simultaneous streams</li>
+            <li>Offline downloads</li>
+            <li>Ad-free viewing</li>
+          </ul>
+          <button class="btn primary" onclick="window.location.href='payment.html?plan=Standard'">Select Standard</button>
+        </article>
+
+        <article class="plan-card-large" data-plan="Premium">
+          <span class="plan-badge">Best Value</span>
+          <h3>Premium</h3>
+          <p class="plan-price">$14.99<span>/month</span></p>
+          <ul>
+            <li>4K Ultra HD</li>
+            <li>4 simultaneous streams</li>
+            <li>Offline downloads</li>
+            <li>Ad-free + Dolby Atmos</li>
+          </ul>
+          <button class="btn primary" onclick="window.location.href='payment.html?plan=Premium'">Select Premium</button>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Check current plan from localStorage
+    const currentPlan = localStorage.getItem('primeSelectedPlan') || 'Standard';
+    document.querySelectorAll('.plan-card-large').forEach(card => {
+      if (card.dataset.plan === currentPlan) {
+        card.classList.add('selected');
+        const btn = card.querySelector('.btn');
+        btn.textContent = 'Current Plan';
+        btn.classList.add('tertiary');
+        btn.onclick = null;
+      }
+    });
+  </script>
+
+  <style>
+    /* Enhance plan cards for full page */
+    .plan-card-large ul {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .plan-card-large li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--text);
+    }
+
+    .plan-card-large li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: bold;
+      margin-right: 1rem;
+    }
+
+    .plan-card-large.selected {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,168,225,0.2);
+    }
+  </style>
+</body>
+</html>
+
