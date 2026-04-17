@@ -2,6 +2,7 @@ Prime Stream (Amazon Prime Video Clone)
 
 A modern movie streaming website inspired by Amazon Prime Video, built using HTML, CSS, and JavaScript.
 It includes dynamic movie browsing, search, watchlist, trailers, and movie details pages.
+Screenshot:<img width="1909" height="948" alt="Screenshot 2026-04-18 002004" src="https://github.com/user-attachments/assets/d117da91-b603-47d0-a889-56ff193d9ca8" />
 
 🚀 Features
 🔍 Search Functionality (real-time filtering)
