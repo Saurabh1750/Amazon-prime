@@ -481,22 +481,37 @@ function renderSearchResults(query) {
 
   if (filteredMovies.length === 0) {
     searchResultsContainer.innerHTML = `
-      <div class="no-results">
-        <p>No results found for "${query}".</p>
+      <div class="section intro" style="padding: var(--space-lg) 0;">
+        <div class="container">
+          <p class="search-notice">No results found for "${query}". Try different keywords.</p>
+        </div>
       </div>
     `;
   } else {
-    searchResultsContainer.innerHTML = filteredMovies
-      .map((movie) => `
-        <article class="search-card">
-          <img src="${getMovieImagePath(movie.img)}" alt="${getSafeString(movie.title)}" loading="lazy" onerror="this.onerror=null; this.src='${FALLBACK_IMAGE}';" />
-          <div class="search-card-meta">
-            <h3>${getSafeString(movie.title)}</h3>
-            <p>${movie.category}</p>
+    // Duplicate for scroll effect like rows
+    let moviesToRender = [...filteredMovies];
+    while (moviesToRender.length < 20) {
+      moviesToRender = moviesToRender.concat(filteredMovies);
+    }
+    moviesToRender = moviesToRender.slice(0, 20);
+
+    searchResultsContainer.innerHTML = `
+      <div class="section" style="padding-top: var(--space-lg);">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <p class="section-label">Search Results</p>
+              <h2>Found ${filteredMovies.length} ${filteredMovies.length === 1 ? 'result' : 'results'}</h2>
+            </div>
           </div>
-        </article>
-      `)
-      .join('');
+          <div class="row">
+            <div class="row-list" id="search-row">
+              ${moviesToRender.map(movie => createMovieCard(movie)).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
   }
 
   searchResultsContainer.classList.remove('hidden');
@@ -795,7 +810,7 @@ elements.planButtons.forEach((button) => button.addEventListener('click', () => 
     }
   });
   document.body.addEventListener('click', (event) => {
-    if (event.target.closest('.row-list, .watchlist-row')) {
+    if (event.target.closest('.row-list, .watchlist-row, #search-row')) {
       handleCardClick(event);
     }
   });
